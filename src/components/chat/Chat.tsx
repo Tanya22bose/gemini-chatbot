@@ -1,18 +1,22 @@
 "use client";
 
-import { MouseEventHandler, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { MessageBubble } from "./MessageBubble";
 import { TypingIndicator } from "./TypingIndicator";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { CornerDownLeft } from "lucide-react";
 import {
+  createUserMessage,
   getApiError,
+  handleApiResponse,
+  handleFormSubmission,
+  handleKeyDown,
   processStreamResponse,
-  validateResponse,
+  validateInput,
 } from "@/lib/utils";
-import { Message } from "./types";
 import { LoadInitialMessage } from "./LoadInitialMessage";
+import { Message } from "./types";
 
 export function Chat() {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -41,17 +45,11 @@ export function Chat() {
   };
 
   const handleSend = async () => {
-    // Don't send empty messages or while waiting for a response
-    if (!input.trim() || loading) return;
+    if (validateInput(input, loading)) return;
 
-    // Create new user message
-    const userMessage: Message = {
-      role: "user",
-      parts: [{ text: input }],
-    };
-
-    // Update messages state and clear input
+    const userMessage = createUserMessage(input);
     const newMessages = [...messages, userMessage];
+
     setMessages(newMessages);
     setInput("");
     setLoading(true);
@@ -65,14 +63,12 @@ export function Chat() {
         body: JSON.stringify({ messages: newMessages }),
       });
 
-      const errors = validateResponse(response);
-      if (!errors) {
-        await processStreamResponse(
-          response,
-          newMessages,
-          updateMessagesWithResponse
-        );
-      }
+      const validResponse = await handleApiResponse(response);
+      await processStreamResponse(
+        validResponse,
+        newMessages,
+        updateMessagesWithResponse
+      );
     } catch (error) {
       const errorMessage = getApiError(error);
       setMessages((prev) => [
@@ -93,31 +89,17 @@ export function Chat() {
   ) => {
     setMessages((prev) => {
       const lastMessage = prev[prev.length - 1];
-      // If the last message is from the model, update it
       if (lastMessage?.role === "model") {
         return [
           ...prev.slice(0, -1),
           { role: "model", parts: [{ text: responseText }] },
         ];
       }
-      // Otherwise, add a new message
       return [
         ...currentMessages,
         { role: "model", parts: [{ text: responseText }] },
       ];
     });
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    handleSend();
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault();
-      handleSend();
-    }
   };
 
   return (
@@ -138,11 +120,14 @@ export function Chat() {
         <div ref={bottomRef} />
       </div>
 
-      <form onSubmit={handleSubmit} className="relative">
+      <form
+        onSubmit={(e) => handleFormSubmission(e, handleSend)}
+        className="relative"
+      >
         <Input
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          onKeyDown={handleKeyDown}
+          onKeyDown={(e) => handleKeyDown(e, handleSend)}
           placeholder="Type your message..."
           className="pr-10"
           disabled={loading}

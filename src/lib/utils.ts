@@ -1,5 +1,6 @@
 import { Message } from "@/components/chat/types";
 import { clsx, type ClassValue } from "clsx"
+import { FormEvent } from "react";
 import { twMerge } from "tailwind-merge"
 
 export function cn(...inputs: ClassValue[]) {
@@ -33,26 +34,43 @@ export const processStreamResponse = async (
   }
 };
 
-export const getApiError = (error: unknown) => {
-  console.error("Chat API error:", error);
-  const errorMessage =
-    error instanceof Error ? error.message : "Failed to get response";
-  return errorMessage;
+export const getApiError = (error: unknown): string => {
+  return error instanceof Error ? error.message : "Failed to get response";
 };
 
-export const validateResponse = async (response: Response) => {
-  // Handle API errors
+// Handles the API response
+export const handleApiResponse = async (response: Response) => {
   if (!response.ok) {
     const errorData = await response.json();
-    throw new Error(
-      errorData.details || errorData.error || "Request failed"
-    );
+    throw new Error(errorData.details || errorData.error || "Request failed");
   }
 
-  // Handle missing response body
   if (!response.body) {
     throw new Error("No response body");
   }
 
-  return null;
+  return response;
+};
+
+// Helper function to validate input
+export const validateInput = (input: string, loading: boolean): boolean => {
+  return !input.trim() || loading;
+};
+
+// Creates a new user message object
+export const createUserMessage = (input: string): Message => ({
+  role: "user",
+  parts: [{ text: input }],
+});
+
+export const handleFormSubmission = (e: KeyboardEvent | FormEvent, handleSubmit: Function) => {
+  e.preventDefault();
+  handleSubmit();
 }
+
+//submit form on key down
+export const handleKeyDown = (e: React.KeyboardEvent, handleSubmit: Function) => {
+  if (e.key === "Enter" && !e.shiftKey) {
+    handleFormSubmission(e, handleSubmit)
+  }
+};
