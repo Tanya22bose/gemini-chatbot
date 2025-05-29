@@ -28,7 +28,7 @@ export function Chat() {
             disabled={isLoading}
           />
         </form>
-        <Button variant="default" onClick={clearChat}>
+        <Button onClick={clearChat} disabled={messages.length === 0}>
           Clear Chat
         </Button>
       </div>

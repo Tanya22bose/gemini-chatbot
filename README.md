@@ -1,36 +1,127 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+A responsive chat interface with Google Gemini API integration featuring real-time streaming responses.
 
-## Getting Started
+Features
+💬 Real-time chat with streaming responses
 
-First, run the development server:
+🎨 Modern UI built with Shadcn UI components
 
-```bash
+⚡ Next.js 14 (App Router)
+
+📱 Fully responsive design
+
+📋 Copy message functionality
+
+🔄 Chat history persistence
+
+🌓 Light/Dark mode (optional bonus)
+
+Technical Stack
+Framework: Next.js 14 (App Router)
+
+UI Library: Shadcn UI
+
+Styling: Tailwind CSS
+
+AI Integration: Google Generative AI SDK (@google/generative-ai)
+
+State Management: React hooks
+
+Deployment: Vercel (recommended)
+
+Getting Started
+Prerequisites
+Node.js v18+
+
+Google Gemini API key (free from Google AI Studio)
+
+Git
+
+Installation
+Clone the repository:
+git clone https://github.com/your-username/gemini-chatbot.git
+cd gemini-chatbot
+
+Install dependencies:
+npm install
+
+Create .env file:
+Add your Gemini API key to .env:
+
+env
+NEXT_PUBLIC_GEMINI_API_KEY=your_api_key_here
+
+Run the development server:
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Deployment
+Vercel (recommended):
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Push your code to GitHub
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Create new project in Vercel
 
-## Learn More
+Add environment variable NEXT_PUBLIC_GEMINI_API_KEY
 
-To learn more about Next.js, take a look at the following resources:
+Deploy!
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Netlify:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Similar process to Vercel
 
-## Deploy on Vercel
+Set up continuous deployment from GitHub
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Project Structure
+/src
+├── app
+│   ├── api
+│   │   └── chat
+│   │       └── route.ts        # Gemini API endpoint
+│   └── globals.css
+├── components
+│   ├── chat
+│   │   ├── Chat.tsx            # Main chat component
+│   │   ├── MessageBubble.tsx
+│   │   └── TypingIndicator.tsx
+├── lib
+│   └── utils.ts                # Helper functions
+├── .env.example                # Environment template
+└── README.md                   # This file
+Implementation Highlights
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+Streaming Responses:
+
+Uses ReadableStream API
+
+Processes chunks as they arrive
+
+Updates UI in real-time
+
+Error Handling:
+
+API failure detection
+
+User-friendly error messages
+
+Graceful recovery
+
+UI Components:
+
+Custom message bubbles
+
+Typing indicators
+
+Responsive layout
+
+Bonus Features Implemented
+✅ Message copy functionality
+✅ Chat history persistence (localStorage)
+✅ Mobile-responsive design
+✅ Loading animations
+
+Time Spent
+Total development time: ~12 hours
+(Within the 48-hour limit)
+
+Live Demo
+View Live Demo

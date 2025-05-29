@@ -17,9 +17,8 @@ export async function POST(req: Request) {
 
         const genAI = new GoogleGenerativeAI(process.env.NEXT_PUBLIC_GEMINI_API_KEY);
 
-        // Use the correct model name
         const model = genAI.getGenerativeModel({
-            model: "gemini-1.5-pro", // or "gemini-1.0-pro"
+            model: "gemini-1.5-pro"
         });
 
         // Format history correctly

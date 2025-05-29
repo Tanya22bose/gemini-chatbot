@@ -1,6 +1,6 @@
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { CornerDownLeft } from "lucide-react";
+import { Send } from "lucide-react";
 
 export function MessageInput({
   value,
@@ -26,7 +26,7 @@ export function MessageInput({
         className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8"
         disabled={!value.trim() || disabled}
       >
-        <CornerDownLeft className="h-4 w-4" />
+        <Send className="h-4 w-4" />
       </Button>
     </div>
   );
