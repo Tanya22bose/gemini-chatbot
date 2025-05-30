@@ -1,8 +1,7 @@
-Gemini AI Chatbot - Next.js
-
+# Gemini AI Chatbot
 A responsive chat interface with Google Gemini API integration featuring real-time streaming responses.
 
-Features
+## Features
 - 💬 Real-time chat with streaming responses
 - 🎨 Modern UI built with Shadcn UI components
 - ⚡ Next.js 14 (App Router)
@@ -11,39 +10,37 @@ Features
 - 🔄 Chat history persistence
 - 🌓 Light/Dark mode 
 
-Technical Stack
+## Technical Stack
 - Framework: Next.js 14 (App Router)
 - UI Library: Shadcn UI
 - Styling: Tailwind CSS
 - AI Integration: Google Generative AI SDK (@google/generative-ai)
 
-State Management: 
+## State Management: 
 - React hooks
 
-Deployment: Vercel (recommended)
+## Deployment: 
+Vercel (recommended)
 
-Getting Started
+## Getting Started
 - Prerequisites
 - Node.js v18+
 
-Google Gemini API key (free from Google AI Studio)
+### Google Gemini API key (free from Google AI Studio)
 
-Git Installation
+## Project Setup
 1. Clone the repository: `git clone https://github.com/your-username/gemini-chatbot.git`
 2. cd gemini-chatbot
 3. Create `.env` file: Add your Gemini API key to .env:`NEXT_PUBLIC_GEMINI_API_KEY=your_api_key_here`
 4. `npm install`
+5. Run the development server: `npm run dev`
 
-Run the development server:
-npm run dev
-
-Set up continuous deployment from GitHub
-Project Structure
+## Project Structure
 1. `/src/app/api/chat/route.ts`          (Gemini API endpoint)
 2. `/src/components/chat/Chat.tsx`       (Main chat component)
 3. `/src/lib/utils.ts`                   (Helper functions)
 
-Bonus Features Implemented
+## Bonus Features Implemented
 - ✅ Message copy functionality
 - ✅ Chat history persistence (localStorage)
 - ✅ Mobile-responsive design
