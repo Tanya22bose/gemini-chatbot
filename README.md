@@ -29,7 +29,7 @@ Vercel (recommended)
 ### Google Gemini API key (free from Google AI Studio)
 
 ## Project Setup
-1. Clone the repository: `git clone https://github.com/your-username/gemini-chatbot.git`
+1. Clone the repository: `git clone https://github.com/Tanya22bose/gemini-chatbot.git`
 2. cd gemini-chatbot
 3. Create `.env` file: Add your Gemini API key to .env:`NEXT_PUBLIC_GEMINI_API_KEY=your_api_key_here`
 4. `npm install`
